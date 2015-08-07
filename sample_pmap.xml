@@ -1,0 +1,88 @@
+<Presentation>
+<!-- the NowPlayingRatings presentationMap maps dynamic data (for a track) to
+     presentation information used on the Sonos Now Playing screen -->
+<PresentationMap type="NowPlayingRatings">
+  <Match propname="isStarred" value="1">
+    <!-- this tag matches if the isStarred propery has the value "1" -->
+
+	<Ratings>
+		<!-- the rating button is starred; the action is to unstar -->
+		<Rating Id="0" StringId="RATE_DOWN" AutoSkip="NEVER" OnSuccessStringId="SUCCESS_DOWN">
+		   <Icon Controller="icr" LastModified="10:29:20 8 Sep 2009" Uri="http://tcoburn-linux-dev.rinconnetworks.com/moapi/star_on.png"/>
+		   <Icon Controller="acr" LastModified="10:29:20 8 Sep 2009" Uri="http://tcoburn-linux-dev.rinconnetworks.com/moapi/star_on.png"/>
+		   <Icon Controller="acr-hdpi" LastModified="10:29:20 8 Sep 2009" Uri="http://tcoburn-linux-dev.rinconnetworks.com/moapi/star_on.png"/>
+		   <Icon Controller="macdcr" LastModified="10:29:20 8 Sep 2009" Uri="http://tcoburn-linux-dev.rinconnetworks.com/moapi/star_on.png"/>
+		   <Icon Controller="pcdcr" LastModified="10:29:20 8 Sep 2009" Uri="http://tcoburn-linux-dev.rinconnetworks.com/moapi/star_on.png"/>
+		   <Icon Controller="cr200" LastModified="10:29:20 8 Sep 2009" Uri="http://tcoburn-linux-dev.rinconnetworks.com/moapi/star_on.png"/>
+		</Rating>
+	</Ratings>
+  </Match>
+
+  <Match propname="isStarred" value="0">
+  	<Ratings>
+		<!-- the rating button is unstarred; the action is to star -->
+		<Rating Id="1" StringId="RATE_UP" AutoSkip="NEVER" OnSuccessStringId="SUCCESS_UP">
+			<Icon Controller="icr" LastModified="10:29:20 8 Sep 2009" Uri="http://tcoburn-linux-dev.rinconnetworks.com/moapi/star_off.png"/>
+			<Icon Controller="acr" LastModified="10:29:20 8 Sep 2009" Uri="http://tcoburn-linux-dev.rinconnetworks.com/moapi/star_off.png"/>
+			<Icon Controller="acr-hdpi" LastModified="10:29:20 8 Sep 2009" Uri="http://tcoburn-linux-dev.rinconnetworks.com/moapi/star_off.png"/>
+			<Icon Controller="macdcr" LastModified="10:29:20 8 Sep 2009" Uri="http://tcoburn-linux-dev.rinconnetworks.com/moapi/star_off.png"/>
+			<Icon Controller="pcdcr" LastModified="10:29:20 8 Sep 2009" Uri="http://tcoburn-linux-dev.rinconnetworks.com/moapi/star_off.png"/>
+			<Icon Controller="cr200" LastModified="10:29:20 8 Sep 2009" Uri="http://tcoburn-linux-dev.rinconnetworks.com/moapi/star_off.png"/>
+		</Rating>
+	</Ratings>
+  </Match>
+  
+
+  <Match>
+    <!-- a default case - matches if no prevous match tag has matched -->
+
+  </Match>
+</PresentationMap>
+
+  <PresentationMap type="InfoView">
+    <Match>
+      <MenuItemOverrides>
+        <!-- MenuItem tags are used to customize the text label for certain
+	     menu items in the InfoView.
+
+           The 'MenuItem' identifies the menu item in the Sonos UI that will
+	     be customized. These values come from a fixed list:
+               "AddTrackToFavorites"
+               "RemoveTrackFromFavorites"
+               "AddAlbumToFavorites"
+               "RemoveAlbumFromFavorites"
+
+           The 'StringId' attribute specifies a string id that must exist in 
+	     the strings.xml file for the service.  The strings.xml contains
+	     the localized text for that ID in all the appropriate languages.
+
+	   The other string ids are used when the action for the menu item
+	   action is performed.
+	   'InProgressStringId' identifies a string that will be displayed if
+             the operation takes longer than a few seconds.  It is a progress
+	     message that should indicate that the operation is still executing.
+	   'SuccessStringId' identifies a string that is displayed if the
+	     menu action succeeds.
+	   'FailureStringId' identifies a string that is displayed if the menu
+	     action fails (for any reason).
+	   'PromptStringId' is used only for "remove track/album" operations and
+	     identifies a string that will be used to prompt the user to verify
+             that they really want to perform that action. If this string id is
+	     blank, then the prompt will be skipped and the action will be
+	     executed immediately.
+        -->
+        <MenuItem MenuItem="AddTrackToFavorites"
+		  StringId="STAR_TRACK"
+		  InProgressStringId="STAR_TRACK_DURING"
+		  SuccessStringId="STAR_TRACK_SUCCESS"
+		  FailureStringId="STAR_TRACK_FAILURE"/>
+        <MenuItem MenuItem="RemoveTrackFromFavorites"
+		  StringId="UNSTAR_TRACK"
+		  PromptStringId=""
+		  SuccessStringId="UNSTAR_TRACK_SUCCESS"
+		  FailureStringId="UNSTAR_TRACK_FAILURE"/>
+      </MenuItemOverrides>
+    </Match>
+  </PresentationMap>
+
+</Presentation>

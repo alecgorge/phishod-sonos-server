@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Strings>
+<String id="MSG_SERVER_FOR_USE_BY_SONOS_PRODUCTS_ONLY">Error: this page is used exclusively by Sonos products.</String>
+<String id="MSG_SOAPFAULT_LOGIN_UNAUTHORIZED">Login unauthorized</String>
+<String id="MSG_SOAPFAULT_SERVICE_UNAVAILABLE">Service unavailable</String>
+<String id="MSG_SOAPFAULT_ITEM_NOT_FOUND">Item not found</String>
+<String id="MSG_SOAPFAULT_SESSION_ID_INVALID">Invalid session id</String>
+<String id="MSG_SOAPFAULT_SERVICE_UNKNOWN_ERROR">Unknown server error</String>
+<String id="MSG_SOAPFAULT_LOGIN_DISABLED">Login disabled</String>
+<String id="MSG_SOAPFAULT_LOGIN_INVALID">Login invalid</String>
+<String id="MSG_SOAPFAULT_UNSUPPORTED_TERRITORY">Unsupported territory</String>
+<String id="MSG_SOAPFAULT_DEVICE_LIMIT">Device already associated</String>
+<String id="MSG_BROWSE_STAFF">Staff Favorites</String>
+<String id="MSG_BROWSE_CATALOG">Browse Catalog</String>
+<String id="MSG_BROWSE_FAVORITES">My Library</String>
+<String id="MSG_ARTISTS">Artists</String>
+<String id="MSG_ALBUMS">Albums</String>
+<String id="MSG_TRACKS">Tracks</String>
+<String id="MSG_EXT_ARTIST_BIO">Artist Bio</String>
+</Strings>

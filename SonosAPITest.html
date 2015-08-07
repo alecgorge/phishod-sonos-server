@@ -1,0 +1,160 @@
+<html>
+  <head>
+  	<script type="text/javascript">
+    var xmlhttp = new XMLHttpRequest();
+	  	xmlhttp.onreadystatechange=function() {
+	      if (xmlhttp.readyState == 4) {
+	        displayResponse(xmlhttp.responseText);
+	        // http://www.terracoder.com convert XML to JSON 
+	        //var json = XMLObjectifier.xmlToJSON(xmlhttp.responseXML);
+	        //var result = json.Body[0].GetQuoteResponse[0].GetQuoteResult[0].Text;
+	        // Result text is escaped XML string, convert string to XML object then convert to JSON object
+	        //json = XMLObjectifier.xmlToJSON(XMLObjectifier.textToXML(result));
+	        //alert(symbol + ' Stock Quote: $' + json.Stock[0].Last[0].Text);
+	      }
+	    }
+      function sendRequest(type) 
+      {
+  	  	xmlhttp.open("POST", "SonosAPI.php",true);
+  	  	xmlhttp.setRequestHeader("SOAPAction", "SonosAPI.php");
+    	xmlhttp.setRequestHeader("Content-Type", "text/xml");
+  	    var xml = getSOAPRequest(type);
+  	    xmlhttp.send(xml);
+      }
+      
+      function displayResponse(sText) {
+    	  document.getElementById("outfield").value = sText;
+    	  document.getElementById("outfield1").innerHTML = sText;
+      }
+      function getSOAPRequest(type) {
+    	  var sRet;
+    	  switch(type) {
+    	  case 1:
+    		  sRet = getCreateItemSOAP();
+    		  break;
+    	  case 2:
+    		  sRet = getSessionIdSOAP();
+    		  break;
+    	  case 3:
+    		  sRet = getRateItemSOAP();
+    		  break;
+    	  case 4:
+    		  sRet = getLastUpdateSOAP();
+    		  break;
+    	  default:
+    		  sRet = "Unknown request";
+    	      break;    			 
+    	  }
+    	  return sRet;
+      }
+	  
+      function getCreateItemSOAP() {
+    	  var sRet = '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">'
+    	               +'<s:Header>'
+    	                 +'<credentials xmlns="http://www.sonos.com/Services/1.1">'
+    	                   +'<deviceId>00-0E-58-58-A0-A0:3</deviceId>'
+    	                   +'<deviceProvider>Sonos</deviceProvider>'
+    	                   +'<sessionId>4d14e751d1b29:21890713</sessionId>'
+    	                 +'</credentials>'
+    	               +'</s:Header>'
+    	               +'<s:Body>'
+    	                 +'<createItem xmlns="http://www.sonos.com/Services/1.1">'
+    	                   +'<favorite>TRACK:efb7d599-8fd3-41b0-b790-5c787a0537af</favorite>'
+    	                 +'</createItem>'
+    	               +'</s:Body>'
+    	             +'</s:Envelope>';
+		return sRet;    	  
+      }
+      
+      function getLastUpdateSOAP() {    	  
+    	  var sRet='<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">' 
+    	  		    +'<s:Body>'
+    	  		      +'<getLastUpdate xmlns="http://www.sonos.com/Services/1.1">'
+    	  		      +'</getLastUpdate>'
+    	  		    +'</s:Body>'
+    	  		  +'</s:Envelope>';
+		return sRet;
+      }
+
+      function getSessionIdSOAP() {    	  
+    	  var sRet='<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">' 
+    	                +'<s:Header>'
+    	                  +'<credentials xmlns="http://www.sonos.com/Services/1.1">'
+    	                    +'<deviceId>00-0E-58-58-A0-A0:3</deviceId>'
+    	                    +'<deviceProvider>Sonos</deviceProvider>'
+    	                  +'</credentials>'
+    	                +'</s:Header>'
+    	  		+'<s:Body>'
+    	  		      +'<getSessionId xmlns="http://www.sonos.com/Services/1.1">'
+    	  		        +'<username>test</username>'
+    	  		        +'<password>fark</password>'
+    	  		      +'</getSessionId>'
+    	  		    +'</s:Body>'
+    	  		  +'</s:Envelope>';
+		return sRet;
+      }
+
+      function getRateItemSOAP() {
+    	  var sRet = '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">'
+    	               +'<s:Header>'
+    	                 +'<credentials xmlns="http://www.sonos.com/Services/1.1">'
+    	                   +'<deviceId>00-0E-58-58-A0-A0:3</deviceId>'
+    	                   +'<deviceProvider>Sonos</deviceProvider>'
+    	                   +'<sessionId>'
+    	                     + document.getElementById("sessionId").value
+    	                   +'</sessionId>'
+    	                 +'</credentials>'
+    	               +'</s:Header>'
+    	               +'<s:Body>'
+    	                 +'<rateItem xmlns="http://www.sonos.com/Services/1.1">'
+    	                   +'<id>'
+    	                     + document.getElementById("trackId").value
+    	                     +'</id>'
+    	                   +'<rating>2</rating>'
+    	                 +'</rateItem>'
+    	               +'</s:Body>'
+    	             +'</s:Envelope>';
+		return sRet;    	  
+      }
+      
+      function requestParams(type) {
+    	  var sParams;
+    	  switch(type) {
+    	  case 1:
+    		  sParams = 
+    			  'SessionID<input type="text" id="sessionId"><br/>' +
+  				  '<input type = "button" value = "createItem" onclick="sendRequest(1)"/>';
+    		  break;
+    	  case 3:
+    		  sParams =    			  
+    			  'SessionID<input type="text" id="sessionId"><br/>' +
+    			  'TrackID<input type="text" id="trackId"><br/>' +
+  				  '<input type = "button" value = "rateItem" onclick="sendRequest(3)"/>';
+    		  break;
+    	  default:
+    		  sParams = "No parameters required.";
+    	      break;
+    	  }
+    	  document.getElementById("params").innerHTML = '<br/>'+sParams+'<br/>';
+      }
+  	</script>
+  </head>
+  <body>
+    <input type = "button" value = "getSessionID" onclick="sendRequest(2)"/> 
+    <input type = "button" value = "getLastUpdate" onclick="sendRequest(4)"/> 
+    <input type = "button" value = "createItem" onclick="requestParams(1)"/> 
+    <input type = "button" value = "rateItem" onclick="requestParams(3)"/> 
+    <br/>
+    <hr/>
+    <p align="center">SOAP RequestParam</p>   
+    <br/>
+    <div id="params"></div>    
+    <br/>
+    <hr/>
+    <p align="center">SOAP Response</p>
+    <br/>    
+  	<textarea id="outfield" rows = "15" cols = "100"></textarea> 
+  	<div id="outfield1"></div>
+  </body>
+</html>
+
